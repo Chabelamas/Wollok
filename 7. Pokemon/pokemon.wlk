@@ -15,7 +15,7 @@ class Pokemon {
 	method curar (cantidad) {
 		puntosDeVida = maximoDeVida.max(puntosDeVida + cantidad)
 	}
-	method sumaPoderesMov () = (movimientos.map({mov => mov.poder()})).sum()
+	method sumaPoderesMov () = movimientos.map({mov => mov.poder()}).sum()
 	method grositud () = maximoDeVida * self.sumaPoderesMov()
 	method daniar (danio) {
 		puntosDeVida = puntosDeVida - danio
@@ -26,7 +26,7 @@ class Pokemon {
 	method luchar (rival) {
 		self.estaVivo()
 		condicion.puedeMoverse()
-		(self.movimientoDisponible()).ejecutar(self, rival)
+		self.movimientoDisponible().ejecutar(self, rival)
 	}
 }
 

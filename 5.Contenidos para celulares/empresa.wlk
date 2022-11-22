@@ -1,13 +1,25 @@
 import planes.*
 import descargas.*
 
+object empresaPdp {
+	const property montoFijoChiste
+	var property impuestoPrestacion
+	method actualizarImpuesto (impuestoActualizado) {
+		self.impuestoPrestacion(impuestoActualizado)
+	}
+}
+
 class CompaniaDeComercializacionDeContenido {
 	var usuarios = #{}
 	method cobra (contenido) =  contenido.montoPorDerechoDeAutor() * 0.25
 	method descargasDeDia (fechaSolicitada) {
-		usuarios.map{usuario => usuario.contenidosDescargadosEn(fechaSolicitada)}
+		return usuarios.map{usuario => usuario.contenidosDescargadosEn(fechaSolicitada)}.flatten() //para volverla una lista y que no sea una lista con sublistas
 	}
-	method mayorDescargaDelDia (fechaSolicitada) // VER QUE NO SE COMO HACER
+	method contenidosDescargadosDeDia (fechaSolicitada) = self.descargasDeDia(fechaSolicitada).map{descarga => descarga.contenido()}
+	method mayorDescargaDeContenidoDelDia (fechaSolicitada) {
+		const contenidos = self.contenidosDescargadosDeDia(fechaSolicitada)
+		return contenidos.max{contenido => contenidos.count(contenido)}
+	}
 }
 
 class CompaniaDeTelecomunicacionesNacional {
@@ -23,28 +35,21 @@ class Usuario {
 	const property companiaTelecomunicaciones
 	const property plan
 	const descargas = []
-	method contenidoDeDescarga (descarga) = descarga.contenido() 
 	method realizarDescarga (contenido) {
 		plan.abonarDescarga(contenido)
-		descarga = new Descarga (fecha = newDate(), contenido = contenido)
-		descargas.add(descarga)
+		const descarga = new Descarga (fecha = newDate(), contenido = contenido)
+		self.agregar(descarga)
 	}
-	method descargasDe (fechaSolicitada) {
-		return descargas.filter{des => des.fueEnElMes(fechaSolicitada)}
-	}
+	method agregar(descarga) = descargas.add(descarga)
+	method descargasDeMes (fechaSolicitada) = descargas.filter{des => des.fueEnElMes(fechaSolicitada)}
 	method gastoEnElMesActual () {
 		const fechaActual = new Date()
-		const listaDeGastos = (self.descargasDe(fechaActual)).map{descarga => plan.valorAPagar(self.contenidoDeDescarga(descarga))} //esta bien?
-		return listaDeGastos.sum()
+		return self.descargasDeMes(fechaActual).sum({descarga => plan.valorAPagarPorDescarga(descarga)}) 
 	}
-	method contenidosDescargados () = descargas.map{descarga => descarga.contenido()}
+	method contenidosDescargados () = descargas.map({descarga => descarga.contenido()})
+	method seRepiteMasDeUnaVez (contenido) = self.contenidosDescargados().count(contenido) > 1
 	method esColgado () {
-		const contenidos = self.contenidosDescargados()
-		contenidos.findOrElse(
-			{contenido, otroContenido => contenido == otroContenido
-			 return true}
-			 , 
-			 {return false})
+		return self.contenidosDescargados().any({contenido => self.seRepiteMasDeUnaVez(contenido)})
 	}
-	method contenidosDescargadosEn (fechaSolicitada) = (descargas.filter{descarga => descarga.fueEnElMismoDia(fechaSolicitada)}).map{descarga => descarga.contenido()}
+	method contenidosDescargadosEn (fechaSolicitada) = descargas.filter{descarga => descarga.fueEnElMismoDia(fechaSolicitada)}.map{descarga => descarga.contenido()}
 }

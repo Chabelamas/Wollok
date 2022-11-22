@@ -32,8 +32,8 @@ class Linea {
 	method registrar (consumo) = consumos.add(consumo)
 	method anadirPack (pack) = packs.add(pack)
 	method packsQueCubren (consumo) = packs.filter({pack => pack.cubre(consumo)})
-	method puedeRealizar (consumo) = (self.packsQueCubren(consumo)).size() > 0
-	method packElegidoParaCubrir (consumo) = (self.packsQueCubren(consumo)).last()
+	method puedeRealizar (consumo) = self.packsQueCubren(consumo).size() > 0
+	method packElegidoParaCubrir (consumo) = self.packsQueCubren(consumo).last()
 	method realizar (consumo) {
 		if (!self.puedeRealizar(consumo)) {
 			tipo.accionConsumoNoRealizable(self, consumo)

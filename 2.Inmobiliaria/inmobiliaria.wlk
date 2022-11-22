@@ -5,6 +5,7 @@ class Inmobiliaria{
 	var property porcentajeVentas
 	const property montoFijo
 	var property empleados = #{}
+	var property inmuebles = #{}
 	method fueElMejor (condicion) = empleados.max{em => condicion.criterio(em)}
 }
 

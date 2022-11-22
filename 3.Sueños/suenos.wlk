@@ -30,13 +30,13 @@ class RecibirseDeCarrera inherits SuenoIndividual {
 
 class TenerUnHijo inherits SuenoIndividual {
 	override method cumplirPara (persona) {
-		super (persona) // esto se puede hacer?
+		super (persona)
 		persona.anadirHijos (1)
 	}
 }
 
 class AdoptarHijos inherits SuenoIndividual {
-	const property cantidad //va property?
+	const cantidad
 	override method puedeCumplirse (persona) {
 		if (persona.cantHijos() != 0){
 			throw new NopuedeCumplirSueno (message = "Ya tiene un hijo, no puede adoptar otro")
@@ -45,7 +45,7 @@ class AdoptarHijos inherits SuenoIndividual {
 	}
 	override method cumplirPara (persona) {
 		super (persona)
-		persona.anadirHijos (cantidad) // esto se puede hacer?
+		persona.anadirHijos (cantidad) 
 	}
 }
 
@@ -53,7 +53,7 @@ class ViajarAUnLugar inherits SuenoIndividual {
 	const property lugar
 	override method cumplirPara (persona) {
 		super (persona)
-		persona.anadirViaje (lugar) // esto se puede hacer?
+		persona.anadirViaje (lugar) 
 	}
 }
 
@@ -70,8 +70,7 @@ class ConseguirTrabajo inherits SuenoIndividual {
 class SuenoMultiple inherits Sueno{
 	const suenos = []
 	override method nivelDeFelicidad  () {
-		var felicidadPorSueno = suenos.map{sueno => sueno.nivelDeFelicidad()} //var?
-		return felicidadPorSueno.sum()
+		const felicidadPorSueno = suenos.map{sueno => sueno.nivelDeFelicidad()} 
 	}
 	override method puedeCumplirse (persona) {
 		suenos.forEach{sueno => sueno.puedeCumplirse(persona)}

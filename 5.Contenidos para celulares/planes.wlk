@@ -3,8 +3,9 @@ import empresas.*
 
 class Plan {
 	method abonarDescarga (contenido)
+	method valorAPagarPorDescarga (descarga) = self.valorAPagar(descarga.contenido())
 	method valorAPagar (contenido) {
-		contenido.montoPorDerechoDeAutor() + companiaDeComercializacionDeContenido.cobra(contenido) + companiaTelecomunicaciones.cobra (contenido)
+		return contenido.montoPorDerechoDeAutor() + companiaDeComercializacionDeContenido.cobra(contenido) + companiaTelecomunicaciones.cobra (contenido)
 	}
 }
 
@@ -17,7 +18,7 @@ object prepago inherits Plan{
 		saldo -= plan.valorAPagar (contenido) 
 	}
 }
-object facturado  inherits Plan{
+class Facturado  inherits Plan{
 	var gastos
 	method abonarDescarga (contenido) {
 		gastos += self.valorAPagar (contenido) 

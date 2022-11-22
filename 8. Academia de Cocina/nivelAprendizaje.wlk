@@ -19,7 +19,7 @@ class Principiante {
 class Experimentado inherits Principiante {
 	override method puedePreparar (cocinero, receta) = super(receta) || cocinero.tieneRecetaSimilarA(receta)
 	override method verificarSuperarNivel (cocinero) {
-		recetasDificiles = (cocinero.recetasPreparadas()).filter({receta => receta.esDificil()})
+		recetasDificiles = cocinero.recetasPreparadas().filter({receta => receta.esDificil()})
 		if (recetasDificiles.size() > 5) cocinero.convertirseEnChef() 
 	}
 	override method calidadComida (cocinero, receta) {

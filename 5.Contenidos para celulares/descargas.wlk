@@ -27,11 +27,3 @@ class Juego {
 	const monto
 	method montoPorDerechoDeAutor () = monto
 }
-
-object empresaPdp {
-	const property montoFijoChiste
-	var property impuestoPrestacion
-	method actualizarImpuesto (impuestoActualizado) {
-		impuestoPrestacion(impuestoActualizado)
-	}
-}

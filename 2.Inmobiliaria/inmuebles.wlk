@@ -6,6 +6,7 @@ class Inmueble {
 	const property cantAmbientes
 	const property operacion
 	const property zona
+	const property inmobiliaria
 	method valor ()
 	method precio () = self.valor() + zona.plus()
 	method esVendible ()
@@ -26,17 +27,17 @@ object depto inherits Inmueble {
 
 class Local inherits Casa {
 	var property tipo
-	override method valor () = tipo.sale(precio)
+	override method valor () = tipo.sale(precio, inmobiliaria)
 }
 
 object Galpones {
-	method sale (precioInmueble) = precioInmueble / 2
+	method sale (precioInmueble, inmobiliaria) = precioInmueble / 2
 }
 
 object ALaCalle {
-	method sale (precioInmueble) = precioInmueble + inmobiliaria.montoFijo() // esto lo puedo hacer?
+	method sale (precioInmueble, inmobiliaria) = precioInmueble + inmobiliaria.montoFijo()
 	override esVendible () {
-		throw new VentaInvalida("Los locales no son vendibles")
+		throw new VentaInvalida(message = "Los locales no son vendibles")
 	}
 }
 

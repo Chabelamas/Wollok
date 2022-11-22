@@ -13,12 +13,10 @@ class Mision {
 		ente.finalizarMision(mision)
 	}
 	method enseniarHabilidades(empleado) {
-		self.habilidadesQueNoPosee(empleado)
-			.forEach({hab => empleado.aprenderHabilidad(hab)})
+		self.habilidadesQueNoPosee(empleado).forEach({hab => empleado.aprenderHabilidad(hab)})
 	}
 	
-	method habilidadesQueNoPosee(empleado) =
-		habilidadesRequeridas.filter({hab => not empleado.tieneHabilidad(hab)})
+	method habilidadesQueNoPosee(empleado) = habilidadesReq.filter({hab => not empleado.tieneHabilidad(hab)})
 	
 }
 

@@ -4,7 +4,7 @@ class Disfraz {
 	const property fechaConfeccion
 	const nombre
 	const property caracteristicas = #{}
-	method puntuacion (persona, fiesta) = (caracteristicas.map{caract => caract.puntuacion (persona, fiesta)}).sum()
+	method puntuacion (persona, fiesta) = caracteristicas.map{caract => caract.puntuacion (persona, fiesta)}.sum()
 	method nombrePar () = nombre.size().even()
 }
 

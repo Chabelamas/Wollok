@@ -19,7 +19,7 @@ class Empleado {
 	const trabajo = oficinista
 	method estaIncapacitado () = cantidadDeSalud < trabajo.saludCritica()
 	method tieneHabilidad (habilidad) = habilidades.contains(habilidad)
-	method puedeUsarHabilidad (habilidad) = tipo.tieneHabilidad (self,habilidad) && !self.estaIncapacitado()
+	method puedeUsarHabilidad (habilidad) = self.tieneHabilidad (habilidad) && !self.estaIncapacitado()
 	method cumpleHabilidades (habilidadesReq) = habilidadesReq.all{hab => self.puedeUsarHabilidad(hab)}
 	method recibirDanio(cantidad) { 
 		salud = salud - cantidad 

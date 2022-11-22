@@ -28,7 +28,7 @@ class Comida {
 // Calidad
 
 object pobre {
-	method experienciaAportada (receta, academia) = (academia.experienciaMaxima()).min(receta.experienciaAportada()) 
+	method experienciaAportada (receta, academia) = academia.experienciaMaxima().min(receta.experienciaAportada()) 
 }
 
 object normal {
